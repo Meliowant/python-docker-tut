@@ -35,6 +35,10 @@ jobs:
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
+
+
+      - name: Repo's owner to lowercase
+        run: echo ::set-env name=GH_REPO_OWNER::$(echo ${{github.repository_owner}} | tr '[:upper:]' '[:lower:]' )
     
       - name: Check out our repo
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -56,7 +60,7 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: ghcr.io/meliowant/pythondev:latest
+          tags: ghcr.io/${{ env.GH_REPO_OWNER }}/pythondev:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           
