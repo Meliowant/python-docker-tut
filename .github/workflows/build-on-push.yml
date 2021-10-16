@@ -38,7 +38,7 @@ jobs:
 
 
       - name: Repo's owner to lowercase
-        run: echo ::set-env name=GH_REPO_OWNER::$(echo ${{github.repository_owner}} | tr '[:upper:]' '[:lower:]' )
+        run: echo "GH_REPO_OWNER=$(echo ${{github.repository_owner}} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
     
       - name: Check out our repo
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
